@@ -91,6 +91,7 @@ plt.figure(figsize=(6, 4))
 plt.imshow(pseudo_image)
 plt.axis("off")
 plt.title(f"Pseudocolor Composite (Bands {green_band}, {red_band}, {nir_band})", fontsize=8)
+plt.savefig('Pseudocolor_Composite.png', dpi=300)
 plt.show()
 
 if __name__ == "__main__":
