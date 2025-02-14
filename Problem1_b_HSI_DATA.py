@@ -42,3 +42,6 @@ plt.tight_layout()
 plt.savefig('correlation_matrix.png', dpi=300)
 plt.show()
 plt.ioff()
+
+if __name__ == "__main__":
+    pass
