@@ -17,6 +17,7 @@ with contextlib.redirect_stdout(io.StringIO()):
 
 matplotlib.use(original_backend)
 
+# SVD and PCA
 def SVD_PCA(data, standardize=False):
     """
     Perform PCA on a data matrix X of shape (m_samples, d_features),
@@ -70,7 +71,7 @@ def main():
 
     for i in range(10):
         axes[i].imshow(X_proj_10_img[:, :, i], cmap=cmocean.cm.thermal)
-        axes[i].set_title(f"PC{i+1}")
+        axes[i].set_title(f"\nPC{i+1}")
         axes[i].axis("off")
 
     plt.tight_layout()

@@ -35,7 +35,6 @@ def recon_error(hsi_data, pcs, mean_vec, std_vec, X_projected, k_values):
     --------
     errors : Dictionary mapping k -> L2 reconstruction error.
     """
-    # Reshape hsi_data to (n, d)
     H, W, d = hsi_data.shape
     X = hsi_data.reshape(-1, d)  # shape (n, d)
     n = X.shape[0]
