@@ -16,6 +16,7 @@ with contextlib.redirect_stdout(io.StringIO()):
     from Problem1_a_HSI_DATA import hsi_data, bands_float
 
 matplotlib.use(original_backend)
+plt.close('all')
 
 # SVD and PCA
 def SVD_PCA(data, standardize=False):
@@ -63,7 +64,7 @@ def main():
     X_proj_10 = X_proj[:, :10]  # shape (H*W, 10)
 
     # Reshape back to image form (H, W, 10)
-    X_proj_10_img = X_proj_10.reshape(H, W, 10)
+    X_proj_10_img = X_proj_10.reshape(H, W, 10) # transformed data into lower dimension
 
     # Plot each of the 10 principal components
     fig, axes = plt.subplots(2, 5, figsize=(20, 8))
@@ -78,6 +79,7 @@ def main():
     plt.show()
 
 if __name__ == "__main__":
+    plt.ion()
     main()
 
     # data = hsi_data.reshape(-1, hsi_data.shape[-1])
