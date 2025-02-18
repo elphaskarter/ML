@@ -21,18 +21,10 @@ for band in bands:
         bands_float.append(0.0)  # Placeholder for debugging
 
 # Electromagnetic spectrum families (in nanometers)
-em_families = {
-    "UV": (10, 400),
-    "Optical": (400, 700),
-    "Infrared": (700, 1000000)  # 1 mm in nanometers
-}
+em_families = {"UV": (10, 400), "Optical": (400, 700), "Infrared": (700, 1000000)}
 
 # Optical sub-categories
-visible_categories = {
-    "Blue": (450, 495),
-    "Green": (495, 570),
-    "Red": (620, 700)
-}
+visible_categories = {"Blue": (450, 495), "Green": (495, 570), "Red": (620, 700)}
 
 # Classify bands into EM families
 band_classes = {}

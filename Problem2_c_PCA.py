@@ -18,6 +18,7 @@ with contextlib.redirect_stdout(io.StringIO()):
     from Problem2_a_b_PCA import SVD_PCA
 
 matplotlib.use(original_backend)
+plt.close('all')
 
 def recon_error(hsi_data, pcs, mean_vec, std_vec, X_projected, k_values):
     """

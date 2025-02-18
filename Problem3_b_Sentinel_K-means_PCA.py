@@ -46,6 +46,16 @@ X_proj_idx = X_proj[:, idx]  # shape (H*W, 4)
 # Reshape back to image form (H, W, 4)
 X_proj_idx_img = X_proj_idx.reshape(H, W, 4)
 
+# Run K-means
+k = 4
+max_iter = 100
+tol = 1e-4
+random_state = 4
+
+H, W, num_pcs = X_proj_idx_img.shape  # (H, W, 4)
+X_pca_reshaped = X_proj_idx_img.reshape(-1, num_pcs)  # (H*W, 4)
+centroids, labels = k_means(X_pca_reshaped, k, max_iter, tol, random_state)
+
 # Plot each of the 10 principal components
 fig, axes = plt.subplots(1, 4, figsize=(20, 5))
 axes = axes.ravel()  # Flatten the 2D array
@@ -58,18 +68,8 @@ for i, pc_col in enumerate(idx):
 plt.tight_layout()
 plt.show()
 
-# Run K-means
-k = 4
-max_iter = 100
-tol = 1e-4
-random_state = 4
-
-H, W, num_pcs = X_proj_idx_img.shape  # (H, W, 4)
-X_pca_reshaped = X_proj_idx_img.reshape(-1, num_pcs)  # (H*W, 4)
-
-centroids, labels = k_means(X_pca_reshaped, k, max_iter, tol, random_state)
-
-fig, ax = plt.subplots(figsize=(8, 6))
+# Plot lower dimenstionality data
+fig, ax = plt.subplots(figsize=(6, 4))
 scatter = ax.scatter(
     X_pca_reshaped[:, 0],  # PC #3 
     X_pca_reshaped[:, 1],  # PC #4
@@ -81,7 +81,8 @@ ax.set_ylabel(f'PC{idx[1]+1}')
 plt.colorbar(scatter, ax=ax, label='Cluster Label')
 plt.show()
 
-fig, ax = plt.subplots(figsize=(8, 6))
+# Plot higher dimenstionality data
+fig, ax = plt.subplots(figsize=(6, 4))
 scatter = ax.scatter(
     X_pca_reshaped[:, 2],  # PC 5 
     X_pca_reshaped[:, 3],  # PC 6
@@ -92,3 +93,13 @@ ax.set_xlabel(f'PC{idx[2]+1}')
 ax.set_ylabel(f'PC{idx[3]+1}')
 plt.colorbar(scatter, ax=ax, label='Cluster Label')
 plt.show() 
+
+# Spartial view on the k clusters
+labels_2d = labels.reshape(H, W)
+labels_2d_float = labels_2d.astype(float)
+labels_2d_float[labels_2d_float <= -1] = np.nan
+plt.imshow(labels_2d_float, cmap='tab20')
+plt.title("K-Means Clusters (Spatial View)")
+plt.colorbar(label='Cluster Label')
+plt.show()
+ 
