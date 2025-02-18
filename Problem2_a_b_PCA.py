@@ -1,7 +1,5 @@
 # --pca analysis--
 import numpy as np
-import pandas as pd
-import seaborn as sns
 import matplotlib.pyplot as plt
 import cmocean
 from Problem1_a_HSI_DATA import hsi_data
@@ -21,12 +19,13 @@ plt.close('all')
 # SVD and PCA
 def SVD_PCA(data, standardize=False):
     """
-    Perform PCA on a data matrix X of shape (m_samples, d_features),
+    Performs PCA on a data matrix data_X of shape (m_samples, d_features),
     using Singular Value Decomposition (SVD).
 
     Parameters:
     -----------
     X : np.ndarray
+
     Returns: (np.ndarray, np.ndarray, np.ndarray)
     --------
     pcs : Principal components (eigenvectors) of shape (d, d).
@@ -46,7 +45,7 @@ def SVD_PCA(data, standardize=False):
 
     else:
         std_arr = None
-        X_centered = data - mean_arr # Mean-center only
+        X_centered = data - mean_arr # Mean-center here
 
     U, S, Vt = np.linalg.svd(X_centered, full_matrices=False) # Compute the SVD 
     V = Vt.T     # Principal components:
@@ -63,10 +62,10 @@ def main():
     pcs, eigenvals, mean_vec, std_vec, X_proj = SVD_PCA(X, standardize=True)
     X_proj_10 = X_proj[:, :10]  # shape (H*W, 10)
 
-    # Reshape back to image form (H, W, 10)
+    # Reshaping back to image form (H, W, 10)
     X_proj_10_img = X_proj_10.reshape(H, W, 10) # transformed data into lower dimension
 
-    # Plot each of the 10 principal components
+    # Plotting each of the 10 principal components
     fig, axes = plt.subplots(2, 5, figsize=(20, 8))
     axes = axes.ravel()  # Flatten the 2D array
 

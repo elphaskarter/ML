@@ -51,7 +51,7 @@ def main():
     X_proj_retained = X_proj[:, :n_retained_comp]
     pcs_retained = X_proj_retained.reshape(H, W, n_retained_comp) # Reconstruction of cleaned PCs
 
-    # Reconstruct data with retained PCs and reverse standardization (in the original feature space)
+    # Reconstructing data with retained PCs and reverse standardization (in the original feature space)
     S_modified = np.diag(eigenvals.copy())
     S_modified[n_retained_comp:, n_retained_comp:] = 0
     X_recon_PCs_clean = np.dot(X_proj, S_modified @ pcs.T) * std_vec + mean_vec  # Reverse standardization
@@ -73,16 +73,15 @@ def main():
     plt.show()
     
     # Define pixels
-    pixels = [(828, 861), (416, 1006), (432, 569), (763, 471), (960, 277)]
+    pixels = [(828, 861), (416, 1006), (432, 569), (763, 471), (488, 206)]
     n_pixels = len(pixels)
     n_rows = int(np.ceil(np.sqrt(n_pixels)))
     n_cols = int(np.ceil(n_pixels / n_rows))
 
-    # Plot spectral profiles for original data
+    # Plot spectral profiles for original data (unstandardized)
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 10))
     axes = axes.ravel()
     for i, (x, y) in enumerate(pixels):
-        # Extract and standardize using PCA mean/std
         spectral_profile = X_recons_all_pcs_img[y, x, :]
         std_profile_all = std_with_pca_params(spectral_profile, mean_vec, std_vec)
         norm_std_profile_all = min_max_normalize(std_profile_all)
@@ -107,7 +106,7 @@ def main():
         norm_std_profile_denoised = min_max_normalize(std_profile_denoised)
         axes[i].plot(bands_float, norm_std_profile_denoised, color='red', label=f"Pixel ({x}, {y})")
         axes[i].set_xlabel("Wavelength (nm)")
-        axes[i].set_ylabel("Standardized Reflectance")
+        axes[i].set_ylabel("Reflectance")
         axes[i].set_title(f"Pixel ({x}, {y})")
         axes[i].grid()
         axes[i].legend()

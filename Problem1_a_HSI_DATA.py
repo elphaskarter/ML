@@ -1,10 +1,7 @@
 # --Problem 1(a)---
-
-import numpy as np
 import matplotlib.pyplot as plt
 import spectral as spy
 from collections import defaultdict
-from mayavi import mlab
 
 # Load the hyperspectral data
 hdr_file = r"C:\Users\elpha\OneDrive\Desktop\hsi_data\tait_hsi.hdr"

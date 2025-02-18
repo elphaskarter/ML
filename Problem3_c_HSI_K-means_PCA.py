@@ -18,6 +18,7 @@ with contextlib.redirect_stdout(io.StringIO()):
 
 matplotlib.use(original_backend)
 plt.close('all')
+plt.ioff()
 
 # hyperspectral data to resize
 rows, cols, n_bands = hsi_data.shape
@@ -43,7 +44,6 @@ X_proj_idx = X_proj[:, idx]  # shape (H*W, 5)
 X_proj_idx_img = X_proj_idx.reshape(H, W, 5)
 H, W, num_pcs = X_proj_idx_img.shape  # (H, W, 5)
 X_pca_reshaped = X_proj_idx_img.reshape(-1, num_pcs)  # (H*W, 5)
-# centroids, labels = k_means(X_pca_reshaped, k, max_iter, tol, random_state)
 
 # MiniBatchKMeans parameters
 k = 6
@@ -52,6 +52,8 @@ mbk_pca.fit(X_pca_reshaped)
 labels_pca = mbk_pca.labels_
 centroids_pca = mbk_pca.cluster_centers_
 miniK_pca_img = labels_pca.reshape(H, W)
+
+plt.ion()
 
 # Plot cluster labels (just as an example)
 plt.imshow(miniK_pca_img, cmap='tab20')
