@@ -72,23 +72,69 @@ def main():
     plt.tight_layout()
     plt.show()
     
-    # Define pixels
-    pixels = [(828, 861), (416, 1006), (432, 569), (763, 471), (488, 206)]
+    
+    # # Define pixels
+    # pixels = [(345, 309), (894, 881), (423, 1008), (397, 83), (773, 468), (687, 552)]
+    # pixel_ID = ['Tarmac', 'Vegetation', 'Bare ground/soil', 'Red panel', 'Blue panel', 'Green panel']
+    # n_pixels = len(pixels)
+    # n_rows = int(np.ceil(np.sqrt(n_pixels)))
+    # n_cols = int(np.ceil(n_pixels / n_rows))
+
+    # # Plot spectral profiles for original data (unstandardized)
+    # fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 10))
+    # axes = axes.ravel()
+    # for i, (x, y) in enumerate(pixels):
+    #     spectral_profile = X_recons_all_pcs_img[y, x, :]
+    #     std_profile_all = std_with_pca_params(spectral_profile, mean_vec, std_vec)
+    #     norm_std_profile_all = min_max_normalize(std_profile_all)
+    #     axes[i].plot(bands_float, norm_std_profile_all, color='red', label=f"Pixel ({x}, {y})")
+    #     axes[i].set_xlabel("Wavelength (nm)")
+    #     axes[i].set_ylabel("Reflectance")
+    #     axes[i].set_title(f"Pixel ({x}, {y})")
+    #     axes[i].grid()
+    #     axes[i].legend()
+    # for i in range(n_pixels, n_rows * n_cols):
+    #     axes[i].axis("off")
+    # plt.tight_layout()
+    # plt.show()
+
+    # # Plot spectral profiles for denoised spaces
+    # fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 10))
+    # axes = axes.ravel()
+    # for i, (x, y) in enumerate(pixels):
+    #     # Extract and standardize using PCA mean/std
+    #     spectral_profile = X_recon_clean_PCs_img[y, x, :]
+    #     std_profile_denoised = std_with_pca_params(spectral_profile, mean_vec, std_vec)
+    #     norm_std_profile_denoised = min_max_normalize(std_profile_denoised)
+    #     axes[i].plot(bands_float, norm_std_profile_denoised, color='red', label=f"Pixel ({x}, {y})")
+    #     axes[i].set_xlabel("Wavelength (nm)")
+    #     axes[i].set_ylabel("Reflectance")
+    #     axes[i].set_title(f"Pixel ({x}, {y})")
+    #     axes[i].grid()
+    #     axes[i].legend()
+    # for i in range(n_pixels, n_rows * n_cols):
+    #     axes[i].axis("off")
+    # plt.tight_layout()
+    # plt.show()
+
+    # Defines pixels and their corresponding names
+    pixels = [(345, 309), (894, 881), (423, 1008), (397, 83), (773, 468), (687, 552)]
+    pixel_ID = ['Tarmac', 'Vegetation', 'Bare ground/soil', 'Red panel', 'Blue panel', 'Green panel']
     n_pixels = len(pixels)
     n_rows = int(np.ceil(np.sqrt(n_pixels)))
     n_cols = int(np.ceil(n_pixels / n_rows))
 
-    # Plot spectral profiles for original data (unstandardized)
+    # Plots spectral profiles for original data (unstandardized)
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 10))
     axes = axes.ravel()
     for i, (x, y) in enumerate(pixels):
         spectral_profile = X_recons_all_pcs_img[y, x, :]
         std_profile_all = std_with_pca_params(spectral_profile, mean_vec, std_vec)
         norm_std_profile_all = min_max_normalize(std_profile_all)
-        axes[i].plot(bands_float, norm_std_profile_all, color='red', label=f"Pixel ({x}, {y})")
+        axes[i].plot(bands_float, norm_std_profile_all, color='red', label=f"Pixel: {pixel_ID[i]}")
         axes[i].set_xlabel("Wavelength (nm)")
         axes[i].set_ylabel("Reflectance")
-        axes[i].set_title(f"Pixel ({x}, {y})")
+        axes[i].set_title(f"Spectral Profile: {pixel_ID[i]}")
         axes[i].grid()
         axes[i].legend()
     for i in range(n_pixels, n_rows * n_cols):
@@ -96,18 +142,17 @@ def main():
     plt.tight_layout()
     plt.show()
 
-    # Plot spectral profiles for denoised spaces
+    # Plots spectral profiles for denoised spaces
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(15, 10))
     axes = axes.ravel()
     for i, (x, y) in enumerate(pixels):
-        # Extract and standardize using PCA mean/std
         spectral_profile = X_recon_clean_PCs_img[y, x, :]
         std_profile_denoised = std_with_pca_params(spectral_profile, mean_vec, std_vec)
         norm_std_profile_denoised = min_max_normalize(std_profile_denoised)
-        axes[i].plot(bands_float, norm_std_profile_denoised, color='red', label=f"Pixel ({x}, {y})")
+        axes[i].plot(bands_float, norm_std_profile_denoised, color='red', label=f"Pixel: {pixel_ID[i]}")
         axes[i].set_xlabel("Wavelength (nm)")
         axes[i].set_ylabel("Reflectance")
-        axes[i].set_title(f"Pixel ({x}, {y})")
+        axes[i].set_title(f"Spectral Profile: {pixel_ID[i]}")
         axes[i].grid()
         axes[i].legend()
     for i in range(n_pixels, n_rows * n_cols):

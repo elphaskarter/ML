@@ -36,7 +36,7 @@ H, W, n_bands = patch.shape
 X = patch.reshape(-1, n_bands) # original data
 pcs, eigenvals, mean_vec, std_vec, X_proj = SVD_PCA(X, standardize=True)
 
-# Transform data onto components 2, 5, 10, 50 and 100
+# Transform data onto components 2, 5, 10, 50 and 100 #  X_proj_10 = X_proj[:, :10]  # shape (H*W, 10)
 idx = [1, 4, 9, 49, 99] 
 X_proj_idx = X_proj[:, idx]  # shape (H*W, 5)
 
@@ -118,3 +118,6 @@ ax.set_xlabel(f'PC{idx[0]+1}')
 ax.set_ylabel(f'PC{idx[1]+1}')
 plt.colorbar(scatter, ax=ax, label='Cluster Label')
 plt.show()
+
+if __name__ == "__main__":
+    pass
